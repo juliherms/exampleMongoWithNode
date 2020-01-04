@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 const userRepo = require('./repository/userRepository');
 const data = require('./data/user.json');
 
@@ -12,11 +13,17 @@ async function main(){
     await client.connect();
 
     const results = await userRepo.loadData(data);
+
+    //check test insert.
+    assert.equal(data.length,results.insertedCount);
+
     console.log(results.insertedCount,results.ops);
 
     const admin = client.db(dbName).admin();
     //console.log(await admin.serverStatus());
     console.log(await admin.listDatabases());
+
+    client.close();
 }
 
 main();
