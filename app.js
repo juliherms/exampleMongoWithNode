@@ -17,6 +17,10 @@ async function main(){
     //check test insert.
     assert.equal(data.length,results.insertedCount);
 
+    
+    const getData = await userRepo.get();
+    assert.equal(data.length,getData.length);
+
     console.log(results.insertedCount,results.ops);
 
     const admin = client.db(dbName).admin();

@@ -5,6 +5,25 @@ function userRepository() {
     const url = 'mongodb+srv://wsuser:1234ws@cluster0-zacxn.mongodb.net/test?retryWrites=true';
     const dbName = 'course';
 
+    
+    function get(){
+        return new Promise( async (resolve, reject) =>{
+
+            const client = new MongoClient(url);
+            try {
+             await client.connect();
+             const db = client.db(dbName);
+
+             const items = db.collection('users').find();
+
+             resolve(await items.toArray());
+             client.close();
+
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
   
     function loadData(data) {
       return new Promise(async (resolve, reject) => {
