@@ -9,27 +9,29 @@ const dbName = 'course';
 
 
 async function main(){
+
     const client = new MongoClient(url);
-    await client.connect();
-
-    const results = await userRepo.loadData(data);
-
-    console.log(results);
-
-    //check test insert.
-    assert.equal(data.length,results.insertedCount);
-    
-    
-    const getData = await userRepo.get();
-    console.log(getData);
    
+    try{
 
+        await client.connect();
 
+        const results = await userRepo.loadData(data);
+
+        console.log(results);
+
+        //check test insert.
+        assert.equal(data.length,results.insertedCount);
     
-    const admin = client.db(dbName).admin();
-    //console.log(await admin.serverStatus());
-    
-    client.close();
+        const getData = await userRepo.get();
+        console.log(getData);
+   
+    } catch( error ){
+        console.log(error);
+    } finally{
+        const admin = client.db(dbName).admin();
+        client.close();
+    }
 }
 
 main();

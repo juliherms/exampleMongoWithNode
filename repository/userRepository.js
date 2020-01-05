@@ -6,7 +6,7 @@ function userRepository() {
     const dbName = 'course';
 
     /**
-     * Responsibel to get data
+     * Responsible to get data
      */
     function get(){
         return new Promise( async (resolve, reject) =>{
@@ -22,7 +22,7 @@ function userRepository() {
              client.close();
 
            } catch (error) {
-             
+
              reject(error);
            }
         });
