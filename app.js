@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+
 const userRepo = require('./repository/userRepository');
 const data = require('./data/user.json');
 
@@ -18,14 +19,20 @@ async function main(){
 
         const results = await userRepo.loadData(data);
 
-        console.log(results);
+       // console.log(results);
 
         //check test insert.
-        assert.equal(data.length,results.insertedCount);
+        //assert.equal(data.length,results.insertedCount);
     
         const getData = await userRepo.get();
-        console.log(getData);
-   
+        //console.log(getData);
+
+        const filterData = await userRepo.get({User : getData[0].User});
+        console.log(filterData);
+
+        const limitData = await userRepo.get({}, 3);
+        console.log(limitData);
+
     } catch( error ){
         console.log(error);
     } finally{
