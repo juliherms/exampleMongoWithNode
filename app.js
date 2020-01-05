@@ -14,19 +14,21 @@ async function main(){
 
     const results = await userRepo.loadData(data);
 
+    console.log(results);
+
     //check test insert.
     assert.equal(data.length,results.insertedCount);
-
+    
     
     const getData = await userRepo.get();
-    assert.equal(data.length,getData.length);
+    console.log(getData);
+   
 
-    console.log(results.insertedCount,results.ops);
 
+    
     const admin = client.db(dbName).admin();
     //console.log(await admin.serverStatus());
-    console.log(await admin.listDatabases());
-
+    
     client.close();
 }
 
