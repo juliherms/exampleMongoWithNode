@@ -1,9 +1,28 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient , ObjectID } = require('mongodb');
 
 function userRepository() {
 
     const url = 'mongodb+srv://wsuser:1234ws@cluster0-zacxn.mongodb.net/test?retryWrites=true';
     const dbName = 'course';
+
+
+    /**
+     * Responsible to get by Id
+     */
+    function getById(id){
+      return new Promise(async (resolve, reject) => {
+        const client = new MongoClient(url);
+        try{
+          await client.connect();
+          const db = client.db(dbName);
+          const item = db.collection('users').findOne({_id: ObjectID(id) });
+          resolve(item);
+          client.close();
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
 
     /**
      * Responsible to get data
@@ -54,7 +73,7 @@ function userRepository() {
     }
   
 
-    return { loadData, get }
+    return { loadData, get, getById }
   
   }
   

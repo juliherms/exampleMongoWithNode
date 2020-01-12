@@ -33,6 +33,10 @@ async function main(){
         const limitData = await userRepo.get({}, 3);
         console.log(limitData);
 
+        //get by id
+        const byId = await userRepo.getById(getData[0]._id);
+        console.log(byId);
+
     } catch( error ){
         console.log(error);
     } finally{
