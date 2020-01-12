@@ -37,6 +37,19 @@ async function main(){
         const byId = await userRepo.getById(getData[0]._id);
         console.log(byId);
 
+        //add
+        const newUser = {
+            "firsName": "Frederico",
+            "lastName": "Vasconcelos",
+            "email": "fred.vasconcelos321@gmail.com",
+            "password": "xxxxxx"
+        }
+
+        const addedItem = await userRepo.add(newUser);
+        console.log(addedItem);
+        const addetItemQuery = await userRepo.getById(addedItem._id);
+        console.log(addetItemQuery);
+
     } catch( error ){
         console.log(error);
     } finally{
