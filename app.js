@@ -50,6 +50,18 @@ async function main(){
         const addetItemQuery = await userRepo.getById(addedItem._id);
         console.log(addetItemQuery);
 
+        const updatedItem = await userRepo.update(addedItem._id,{
+            "firsName": "Fred",
+            "lastName": "Vasconcelos",
+            "email": "fred.vasconcelos321@gmail.com",
+            "password": "xxxxxx"
+        });
+
+        const newUpdatedItem = await userRepo.getById(updatedItem._id);
+
+        console.log(newUpdatedItem);
+
+
     } catch( error ){
         console.log(error);
     } finally{

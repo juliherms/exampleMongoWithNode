@@ -5,6 +5,24 @@ function userRepository() {
     const url = 'mongodb+srv://wsuser:1234ws@cluster0-zacxn.mongodb.net/test?retryWrites=true';
     const dbName = 'course';
 
+
+    function update(id,newItem){
+      return new Promise(async (resolve,reject) => {
+        const client = new MongoClient(url);
+        try{
+          await client.connect();
+          const db = client.db(dbName);
+          const updatedItem = await db.collection('users')
+          .findOneAndReplace({_id: ObjectID(id)},newItem);
+
+          resolve(updatedItem.value);
+          client.close;
+        } catch (error) {
+          reject(error);
+        }
+      })
+    }
+
     /**
      * responsible to addItem
      * 
@@ -93,7 +111,7 @@ function userRepository() {
     }
   
     //export functions
-    return { loadData, get, getById, add }
+    return { loadData, get, getById, add, update }
   
   }
   
