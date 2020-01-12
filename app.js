@@ -61,6 +61,9 @@ async function main(){
 
         console.log(newUpdatedItem);
 
+        const removed = await userRepo.remove(addedItem._id);
+        console.log(removed);
+
 
     } catch( error ){
         console.log(error);
